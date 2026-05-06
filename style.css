@@ -30,6 +30,7 @@ body {
   color: var(--text);
   font-family: var(--font-body);
   overflow-x: hidden;
+  max-width: 100vw;
 }
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; border: none; background: none; }
@@ -1155,9 +1156,11 @@ button { cursor: pointer; border: none; background: none; }
   .feed-panel { grid-row: span 1; }
 }
 @media (max-width: 768px) {
-  .nav { padding: 16px 24px; }
+  .nav { padding: 14px 20px; }
   .nav-links { display: none; }
-  .hero { padding: 100px 24px 60px; }
+  .hero { padding: 100px 24px 60px; overflow-x: hidden; }
+  .hero-content { max-width: 100%; }
+  .hero-title { font-size: clamp(3rem, 9vw, 5.5rem); }
   .features { padding: 80px 24px; }
   .features-grid { grid-template-columns: 1fr; }
   .feat-big, .feat-wide { grid-column: span 1; }
@@ -1193,21 +1196,70 @@ button { cursor: pointer; border: none; background: none; }
   .login-btn { padding: 14px 20px; font-size: 1rem; }
 
   /* ── NAV ───────────────────────────────────────────── */
-  .nav { padding: 14px 16px; }
-  .nav-logo { font-size: .9rem; }
-  .nav-logo svg { width: 24px; height: 24px; }
-  .nav-user { font-size: .72rem; max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .nav { padding: 12px 16px; width: 100%; box-sizing: border-box; }
+  .nav-logo { font-size: .85rem; flex-shrink: 0; }
+  .nav-logo svg { width: 22px; height: 22px; }
+  .nav-user { font-size: .7rem; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex-shrink: 1; }
 
   /* ── HERO ──────────────────────────────────────────── */
-  .hero { padding: 90px 16px 50px; text-align: center; }
-  .hero-badge { font-size: .7rem; justify-content: center; }
-  .hero-title { font-size: clamp(2.8rem, 14vw, 4.5rem); }
-  .title-line { display: block; }
-  .hero-desc { font-size: .9rem; }
-  .hero-cta { flex-direction: column; align-items: center; gap: 12px; }
-  .cta-primary, .cta-secondary { width: 100%; justify-content: center; font-size: .95rem; padding: 14px 20px; }
+  .hero {
+    padding: 80px 20px 48px;
+    text-align: center;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .hero-content {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-badge {
+    font-size: .68rem;
+    padding: 5px 12px;
+    margin-bottom: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90vw;
+  }
+  .hero-title {
+    font-size: clamp(2.6rem, 13vw, 3.8rem);
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1;
+  }
+  .title-line {
+    display: block;
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .hero-desc {
+    font-size: .88rem;
+    margin-bottom: 28px;
+    padding: 0 4px;
+    text-align: center;
+  }
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 32px;
+  }
+  .cta-primary, .cta-secondary {
+    width: 100%;
+    justify-content: center;
+    font-size: .95rem;
+    padding: 14px 20px;
+  }
   .hero-scroll-hint { display: none; }
-  .hero-orb-1, .hero-orb-2, .hero-orb-3 { opacity: .4; }
+  .hero-orb-1, .hero-orb-2, .hero-orb-3 { opacity: .3; }
+  .hero-grid { opacity: .5; }
 
   /* ── TICKER ────────────────────────────────────────── */
   .hero-sports-ticker { margin-top: 24px; }
@@ -1281,7 +1333,8 @@ button { cursor: pointer; border: none; background: none; }
 /* ── Muy pequeño (iPhone SE, 375px) ───────────────────── */
 @media (max-width: 375px) {
   .login-title { font-size: 1.8rem; }
-  .hero-title { font-size: clamp(2.4rem, 13vw, 3.5rem); }
+  .hero-title { font-size: clamp(2.2rem, 12vw, 3rem); }
+  .hero { padding: 70px 16px 40px; }
   .admin-kpi-row { grid-template-columns: repeat(2, 1fr); }
   .kpi-val { font-size: 1.5rem; }
 }
