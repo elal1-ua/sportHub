@@ -12,12 +12,13 @@ import {
 // ── FIREBASE CONFIG ───────────────────────────────────
 // 🔧 Reemplaza estos valores con los de tu proyecto Firebase
 const firebaseConfig = {
-  apiKey:            "AIzaSyDEMO_KEY_REPLACE_ME",
-  authDomain:        "sportconnect-demo.firebaseapp.com",
-  projectId:         "sportconnect-demo",
-  storageBucket:     "sportconnect-demo.appspot.com",
-  messagingSenderId: "123456789",
-  appId:             "1:123456789:web:abcdef123456"
+  apiKey: "AIzaSyDaTzlx_hjUDqtEwUCPELjF5BXjdaU-R6w",
+  authDomain: "sporthub-1c5cd.firebaseapp.com",
+  projectId: "sporthub-1c5cd",
+  storageBucket: "sporthub-1c5cd.firebasestorage.app",
+  messagingSenderId: "336712409305",
+  appId: "1:336712409305:web:4348aec7a697009ce2dec8",
+  measurementId: "G-RCD9R07M6K"
 };
 
 // ── EMAIL ADMIN (modifica a tu gusto) ─────────────────
