@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════
-//  SPORTCONNECT — app.js
+//  SPORTHUB — app.js
 //  Firebase Auth + Firestore + Admin Dashboard
 // ═══════════════════════════════════════════════════════
 
@@ -22,7 +22,7 @@ const firebaseConfig = {
 };
 
 // ── EMAIL ADMIN (modifica a tu gusto) ─────────────────
-const ADMIN_EMAIL = "admin@sportconnect.com";
+const ADMIN_EMAIL = "admin@sporthub.com";
 
 // ── INIT ──────────────────────────────────────────────
 let db;
@@ -112,6 +112,10 @@ window.handleLogin = async function () {
 
   // Small delay for UX feel
   await sleep(600);
+
+  // Reset button
+  btn.innerHTML = `<span class="btn-text">ENTRAR AL JUEGO</span><span class="btn-arrow">→</span><div class="btn-ripple"></div>`;
+  btn.disabled = false;
 
   // Admin or normal user
   if (email === ADMIN_EMAIL) {
@@ -243,7 +247,7 @@ function appendFeedItem(name, surname, email, time) {
   if (empty) empty.remove();
 
   const initial = (name[0] || "?").toUpperCase();
-  const colors  = ["#00ff88","#00cc6a","#00aa55","#008844"];
+  const colors  = ["#FF5500","#E04A00","#ff7733","#cc4400"];
   const color   = colors[Math.floor(Math.random() * colors.length)];
 
   const item = document.createElement("div");
@@ -328,8 +332,8 @@ function drawChart() {
 
   // Gradient fill
   const grad = chartCtx.createLinearGradient(0, 0, 0, h);
-  grad.addColorStop(0, "rgba(0,255,136,.35)");
-  grad.addColorStop(1, "rgba(0,255,136,0)");
+  grad.addColorStop(0, "rgba(255,85,0,.35)");
+  grad.addColorStop(1, "rgba(255,85,0,0)");
 
   chartCtx.beginPath();
   chartCtx.moveTo(20 + barW * .5, h - padB);
@@ -365,7 +369,7 @@ function drawChart() {
       chartCtx.bezierCurveTo(cx, py, cx, y, x, y);
     }
   });
-  chartCtx.strokeStyle = "#00ff88";
+  chartCtx.strokeStyle = "#FF5500";
   chartCtx.lineWidth = 2;
   chartCtx.stroke();
 
@@ -375,7 +379,7 @@ function drawChart() {
     const y = padB + (h - padB) * (1 - val / max);
     chartCtx.beginPath();
     chartCtx.arc(x, y, 3, 0, Math.PI * 2);
-    chartCtx.fillStyle = "#00ff88";
+    chartCtx.fillStyle = "#FF5500";
     chartCtx.fill();
   });
 
@@ -440,7 +444,7 @@ function buildSportBars() {
 //  PHONE MOCKUP — Player Cards
 // ════════════════════════════════════════════════════════
 const MOCK_PLAYERS = [
-  { name: "Carlos R.", sport: "Tenis · Niv. 7", dist: "0.4 km", emoji: "🎾", color: "#00ff88" },
+  { name: "Carlos R.", sport: "Tenis · Niv. 7", dist: "0.4 km", emoji: "🎾", color: "#FF5500" },
   { name: "María L.",  sport: "Pádel · Niv. 5", dist: "0.9 km", emoji: "🏓", color: "#ff6a00" },
   { name: "Javier M.", sport: "Fútbol · Niv. 6", dist: "1.2 km", emoji: "⚽", color: "#0088ff" },
   { name: "Ana G.",    sport: "Basket · Niv. 4", dist: "1.8 km", emoji: "🏀", color: "#ff00aa" },
@@ -579,8 +583,8 @@ style.textContent = `
   }
   .spin {
     width: 18px; height: 18px;
-    border: 2px solid rgba(0,0,0,.3);
-    border-top-color: #000;
+    border: 2px solid rgba(255,255,255,.3);
+    border-top-color: #fff;
     border-radius: 50%;
     animation: spinAnim .7s linear infinite;
   }
