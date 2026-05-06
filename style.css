@@ -1288,11 +1288,24 @@ button { cursor: pointer; border: none; background: none; }
   .how-section { padding: 60px 16px; }
   .steps-container { padding: 0; }
   .step-line { display: none; }
-  .step { flex-direction: column; gap: 12px; padding: 20px 0; align-items: flex-start; }
-  .step-num { font-size: 2rem; min-width: unset; }
-  .step-content h3 { font-size: 1.05rem; }
-  .step-content p { font-size: .85rem; }
-  .step-vis { font-size: 2rem; align-self: flex-end; margin-top: -48px; }
+  .step {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 0;
+    padding-left: 0;
+  }
+  .step-num {
+    position: static;
+    width: 44px; height: 44px;
+    min-width: 44px;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .step-content { flex: 1; min-width: 0; }
+  .step-content h3 { font-size: 1rem; margin-bottom: 4px; }
+  .step-content p { font-size: .82rem; line-height: 1.6; }
+  .step-vis { font-size: 1.8rem; flex-shrink: 0; margin-top: 0; align-self: flex-start; }
 
   /* ── CTA FINAL ─────────────────────────────────────── */
   .cta-section { padding: 60px 16px; }
