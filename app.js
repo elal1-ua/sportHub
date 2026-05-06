@@ -157,11 +157,13 @@ function showAdminDashboard() {
 
   setupChart();
   buildSportBars();
-  updateKPIs(demoUsers.length);
 
   if (isFirebaseConnected) {
+    // KPIs will be set by Firebase listeners
+    feedList.innerHTML = "<div class='feed-empty'>Cargando usuarios...</div>";
     listenFirebase();
   } else {
+    updateKPIs(demoUsers.length);
     startDemoMode();
   }
 }
@@ -169,24 +171,46 @@ function showAdminDashboard() {
 // ════════════════════════════════════════════════════════
 //  FIREBASE REALTIME LISTENER
 // ════════════════════════════════════════════════════════
+let initialLoadDone = false;
+
 function listenFirebase() {
-  const q = query(collection(db, "users"), orderBy("createdAt", "desc"), limit(50));
+  const q = query(collection(db, "users"), orderBy("createdAt", "desc"), limit(100));
 
   onSnapshot(q, (snapshot) => {
     const total = snapshot.size;
     document.getElementById("kpiTotal").textContent = total;
     document.getElementById("adminLiveCount").textContent = total;
 
-    snapshot.docChanges().forEach(change => {
-      if (change.type === "added") {
-        const d = change.doc.data();
-        appendFeedItem(d.name, d.surname, d.email, "Ahora");
-        bumpActivityChart();
+    if (!initialLoadDone) {
+      // Primera carga: mostrar TODOS los usuarios existentes
+      initialLoadDone = true;
+      feedList.innerHTML = "";
+
+      if (snapshot.empty) {
+        feedList.innerHTML = "<div class='feed-empty'>Sin registros aún...</div>";
+      } else {
+        snapshot.docs.forEach(doc => {
+          const d = doc.data();
+          const time = d.createdAt
+            ? formatTime(d.createdAt.toDate())
+            : (d.timestamp ? formatTime(new Date(d.timestamp)) : "—");
+          appendFeedItem(d.name, d.surname, d.email, time, false);
+        });
       }
-    });
+      bumpActivityChart();
+    } else {
+      // Actualizaciones en tiempo real: solo los nuevos
+      snapshot.docChanges().forEach(change => {
+        if (change.type === "added") {
+          const d = change.doc.data();
+          appendFeedItem(d.name, d.surname, d.email, "Ahora", true);
+          bumpActivityChart();
+        }
+      });
+    }
   });
 
-  // Count today
+  // Contador de hoy
   const startOfDay = new Date(); startOfDay.setHours(0,0,0,0);
   const todayQuery = query(
     collection(db, "users"),
@@ -194,6 +218,7 @@ function listenFirebase() {
   );
   onSnapshot(todayQuery, snap => {
     document.getElementById("kpiToday").textContent = snap.size;
+    animateNumber(document.getElementById("kpiActive"), Math.floor(snap.size * .4));
   });
 }
 
@@ -242,7 +267,7 @@ function startDemoMode() {
 // ════════════════════════════════════════════════════════
 //  FEED
 // ════════════════════════════════════════════════════════
-function appendFeedItem(name, surname, email, time) {
+function appendFeedItem(name, surname, email, time, isNew = false) {
   const empty = feedList.querySelector(".feed-empty");
   if (empty) empty.remove();
 
@@ -251,24 +276,19 @@ function appendFeedItem(name, surname, email, time) {
   const color   = colors[Math.floor(Math.random() * colors.length)];
 
   const item = document.createElement("div");
-  item.className = "feed-item";
+  item.className = "feed-item" + (isNew ? " feed-item--new" : "");
   item.innerHTML = `
     <div class="feed-avatar" style="background:${color}">${initial}</div>
     <div class="feed-info">
       <div class="feed-name">${name} ${surname}</div>
       <div class="feed-email">${email}</div>
     </div>
-    <div class="feed-time">${time}</div>
+    <div class="feed-time">${isNew ? "🟢 Ahora" : time}</div>
   `;
   feedList.prepend(item);
 
-  // Limit visible
   const items = feedList.querySelectorAll(".feed-item");
-  if (items.length > 30) items[items.length - 1].remove();
-
-  // Update live count
-  const liveEl = document.getElementById("adminLiveCount");
-  liveEl.textContent = parseInt(liveEl.textContent || "0") + 1;
+  if (items.length > 100) items[items.length - 1].remove();
 }
 
 // ════════════════════════════════════════════════════════

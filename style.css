@@ -1168,3 +1168,131 @@ button { cursor: pointer; border: none; background: none; }
   .admin-main { padding: 20px; }
   .admin-kpi-row { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ════════════════════════════════════════════════════════
+   MOBILE — max 480px
+   ════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+
+  /* ── LOGIN ─────────────────────────────────────────── */
+  .login-overlay { align-items: flex-end; }
+  .login-modal {
+    width: 100%;
+    border-radius: 24px 24px 0 0;
+    padding: 28px 20px 36px;
+    max-height: 95vh;
+    overflow-y: auto;
+  }
+  .login-glow { display: none; }
+  .login-title { font-size: 2rem; }
+  .login-sub { font-size: .75rem; }
+  .login-stats { gap: 0; }
+  .stat-n { font-size: 1.4rem; }
+  .stat-l { font-size: .62rem; }
+  .input-group input { padding: 12px 14px; font-size: .9rem; }
+  .login-btn { padding: 14px 20px; font-size: 1rem; }
+
+  /* ── NAV ───────────────────────────────────────────── */
+  .nav { padding: 14px 16px; }
+  .nav-logo { font-size: .9rem; }
+  .nav-logo svg { width: 24px; height: 24px; }
+  .nav-user { font-size: .72rem; max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* ── HERO ──────────────────────────────────────────── */
+  .hero { padding: 90px 16px 50px; text-align: center; }
+  .hero-badge { font-size: .7rem; justify-content: center; }
+  .hero-title { font-size: clamp(2.8rem, 14vw, 4.5rem); }
+  .title-line { display: block; }
+  .hero-desc { font-size: .9rem; }
+  .hero-cta { flex-direction: column; align-items: center; gap: 12px; }
+  .cta-primary, .cta-secondary { width: 100%; justify-content: center; font-size: .95rem; padding: 14px 20px; }
+  .hero-scroll-hint { display: none; }
+  .hero-orb-1, .hero-orb-2, .hero-orb-3 { opacity: .4; }
+
+  /* ── TICKER ────────────────────────────────────────── */
+  .hero-sports-ticker { margin-top: 24px; }
+  .ticker-track span { font-size: .8rem; padding: 0 12px; }
+
+  /* ── SECTION LABELS & TITLES ───────────────────────── */
+  .section-label { font-size: .65rem; }
+  .section-title { font-size: clamp(1.8rem, 8vw, 2.6rem); }
+
+  /* ── FEATURES ──────────────────────────────────────── */
+  .features { padding: 60px 16px; }
+  .features-grid { gap: 12px; }
+  .feat-card { padding: 24px 20px; }
+  .feat-card h3 { font-size: 1.1rem; }
+  .feat-card p { font-size: .85rem; }
+  .feat-tag-row { flex-wrap: wrap; gap: 6px; }
+  .feat-tag { font-size: .7rem; padding: 4px 10px; }
+  .radar-anim { width: 80px; height: 80px; }
+
+  /* ── SPORTS ────────────────────────────────────────── */
+  .sports-section { padding: 60px 16px; }
+  .sports-wheel { gap: 8px; }
+  .sport-chip { padding: 8px 14px; font-size: .8rem; gap: 6px; }
+
+  /* ── HOW IT WORKS ──────────────────────────────────── */
+  .how-section { padding: 60px 16px; }
+  .steps-container { padding: 0; }
+  .step-line { display: none; }
+  .step { flex-direction: column; gap: 12px; padding: 20px 0; align-items: flex-start; }
+  .step-num { font-size: 2rem; min-width: unset; }
+  .step-content h3 { font-size: 1.05rem; }
+  .step-content p { font-size: .85rem; }
+  .step-vis { font-size: 2rem; align-self: flex-end; margin-top: -48px; }
+
+  /* ── CTA FINAL ─────────────────────────────────────── */
+  .cta-section { padding: 60px 16px; }
+  .cta-big { font-size: clamp(2.2rem, 11vw, 3.5rem); }
+  .cta-section p { font-size: .9rem; }
+  .cta-xl { width: 100%; font-size: 1rem; padding: 16px 24px; }
+
+  /* ── FOOTER ────────────────────────────────────────── */
+  .footer { padding: 28px 16px; gap: 12px; }
+  .footer-logo { font-size: 1.2rem; }
+  .footer p { font-size: .75rem; }
+  .footer-links { gap: 16px; }
+  .footer-links a { font-size: .8rem; }
+
+  /* ── ADMIN DASHBOARD ───────────────────────────────── */
+  .admin-header { padding: 12px 16px; gap: 10px; flex-wrap: wrap; }
+  .admin-logo span { font-size: .8rem; }
+  .admin-logo svg { width: 20px; height: 20px; }
+  .admin-status { font-size: .72rem; }
+  .admin-logout { font-size: .72rem; padding: 6px 12px; }
+  .admin-main { padding: 12px 16px; gap: 12px; }
+  .admin-kpi-row { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .kpi-card { padding: 16px 12px; }
+  .kpi-icon { font-size: 1.1rem; }
+  .kpi-val { font-size: 1.8rem; }
+  .kpi-label { font-size: .65rem; }
+  .admin-grid { gap: 12px; }
+  .admin-panel { padding: 16px; }
+  .panel-header h2 { font-size: .8rem; }
+  .feed-item { gap: 8px; padding: 10px 0; }
+  .feed-avatar { width: 32px; height: 32px; font-size: .8rem; flex-shrink: 0; }
+  .feed-name { font-size: .8rem; }
+  .feed-email { font-size: .68rem; }
+  .feed-time { font-size: .65rem; white-space: nowrap; }
+  .sport-bar-label { font-size: .75rem; }
+}
+
+/* ── Muy pequeño (iPhone SE, 375px) ───────────────────── */
+@media (max-width: 375px) {
+  .login-title { font-size: 1.8rem; }
+  .hero-title { font-size: clamp(2.4rem, 13vw, 3.5rem); }
+  .admin-kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .kpi-val { font-size: 1.5rem; }
+}
+
+/* ── Feed item nuevo (tiempo real) ─────────────────────── */
+.feed-item--new {
+  animation: feedPop .4s cubic-bezier(.34,1.56,.64,1) both;
+  border-left: 2px solid var(--orange);
+  padding-left: 10px;
+}
+@keyframes feedPop {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
