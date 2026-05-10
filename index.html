@@ -355,7 +355,7 @@
       </div>
       <h2 class="cta-big">¿LISTO PARA<br /><span>COMPETIR?</span></h2>
       <p>Más de 12.000 jugadores ya están en tu zona.</p>
-      <button class="cta-primary cta-xl">
+      <button class="cta-primary cta-xl" onclick="openWelcomeModal()">
         UNIRME GRATIS →
       </button>
     </section>
@@ -551,6 +551,14 @@
     // ── WELCOME MODAL ──
     function openWelcomeModal() {
       const modal = document.getElementById('welcomeModal');
+      // Saltar directamente al paso de bienvenida sin pedir nombre
+      const step1 = document.getElementById('wmStep1');
+      const step2 = document.getElementById('wmStep2');
+      if (step1) step1.classList.add('hidden');
+      if (step2) {
+        step2.classList.remove('hidden');
+        step2.classList.add('wm-entering');
+      }
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
