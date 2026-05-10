@@ -194,7 +194,7 @@
         </p>
 
         <div class="hero-cta">
-          <button class="cta-primary" onclick="scrollTo({top: document.getElementById('features').offsetTop, behavior:'smooth'})">
+          <button class="cta-primary" onclick="openPlayersModal()">
             DESCUBRIR JUGADORES
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
@@ -372,6 +372,42 @@
     </footer>
   </div>
 
+
+  <!-- PLAYERS MODAL -->
+  <div id="playersModal" class="players-modal" onclick="closePlayersModal(event)">
+    <div class="players-modal-inner">
+
+      <div class="pm-header">
+        <div class="pm-header-left">
+          <div class="pm-title-row">
+            <span class="pm-icon">📍</span>
+            <h2 class="pm-title">Jugadores cerca de ti</h2>
+          </div>
+          <p class="pm-subtitle">Cartagena, Murcia · Actualizando en tiempo real</p>
+        </div>
+        <button class="pm-close" onclick="closePlayersModal()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="pm-filters">
+        <button class="pm-filter active" data-sport="todos" onclick="filterPlayers(this)">Todos</button>
+        <button class="pm-filter" data-sport="tenis" onclick="filterPlayers(this)">🎾 Tenis</button>
+        <button class="pm-filter" data-sport="padel" onclick="filterPlayers(this)">🏓 Pádel</button>
+        <button class="pm-filter" data-sport="futbol" onclick="filterPlayers(this)">⚽ Fútbol</button>
+        <button class="pm-filter" data-sport="basket" onclick="filterPlayers(this)">🏀 Basket</button>
+        <button class="pm-filter" data-sport="voley" onclick="filterPlayers(this)">🏐 Vóley</button>
+      </div>
+
+      <div class="pm-list" id="playersList"></div>
+
+      <div class="pm-footer">
+        <span class="pm-live-dot"></span>
+        <span id="pmCount">0 jugadores disponibles ahora</span>
+      </div>
+    </div>
+  </div>
+
   <!-- VIDEO MODAL -->
   <div id="videoModal" class="video-modal" onclick="closeVideoModal(event)">
     <div class="video-modal-inner">
@@ -401,7 +437,79 @@
       video.pause();
       video.currentTime = 0;
     }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideoModal({}); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeVideoModal({}); closePlayersModal({}); } });
+
+    // ── PLAYERS MODAL ──
+    const ALL_PLAYERS = [
+      { name: "Carlos Ruiz",    sport: "tenis",  emoji: "🎾", nivel: 7, dist: 0.4, disponible: true,  avatar: "CR", color: "#e84200" },
+      { name: "María López",    sport: "padel",  emoji: "🏓", nivel: 5, dist: 0.9, disponible: true,  avatar: "ML", color: "#1a3de4" },
+      { name: "Javier Martínez",sport: "futbol", emoji: "⚽", nivel: 6, dist: 1.2, disponible: false, avatar: "JM", color: "#008040" },
+      { name: "Ana García",     sport: "basket", emoji: "🏀", nivel: 4, dist: 1.8, disponible: true,  avatar: "AG", color: "#7b20d4" },
+      { name: "Pedro Sánchez",  sport: "tenis",  emoji: "🎾", nivel: 8, dist: 2.1, disponible: true,  avatar: "PS", color: "#e84200" },
+      { name: "Laura Jiménez",  sport: "padel",  emoji: "🏓", nivel: 6, dist: 2.5, disponible: true,  avatar: "LJ", color: "#1a3de4" },
+      { name: "Sergio Torres",  sport: "futbol", emoji: "⚽", nivel: 5, dist: 2.8, disponible: false, avatar: "ST", color: "#008040" },
+      { name: "Elena Fernández",sport: "voley",  emoji: "🏐", nivel: 7, dist: 3.0, disponible: true,  avatar: "EF", color: "#d4920b" },
+      { name: "Miguel Navarro", sport: "basket", emoji: "🏀", nivel: 9, dist: 3.4, disponible: true,  avatar: "MN", color: "#7b20d4" },
+      { name: "Sofía Castro",   sport: "tenis",  emoji: "🎾", nivel: 5, dist: 3.9, disponible: true,  avatar: "SC", color: "#e84200" },
+      { name: "Rubén Morales",  sport: "padel",  emoji: "🏓", nivel: 8, dist: 4.2, disponible: false, avatar: "RM", color: "#1a3de4" },
+      { name: "Cristina Vega",  sport: "voley",  emoji: "🏐", nivel: 6, dist: 4.7, disponible: true,  avatar: "CV", color: "#d4920b" },
+    ];
+
+    let currentFilter = 'todos';
+
+    function renderPlayers(filter) {
+      const list = document.getElementById('playersList');
+      const filtered = filter === 'todos' ? ALL_PLAYERS : ALL_PLAYERS.filter(p => p.sport === filter);
+      document.getElementById('pmCount').textContent = filtered.filter(p=>p.disponible).length + ' jugadores disponibles ahora';
+      list.innerHTML = filtered.map((p, i) => `
+        <div class="pm-card" style="animation-delay:${i*0.05}s">
+          <div class="pm-avatar" style="background:${p.color}22;border:2px solid ${p.color}55;color:${p.color}">${p.avatar}</div>
+          <div class="pm-info">
+            <div class="pm-name">${p.name}</div>
+            <div class="pm-meta"><span>${p.emoji} ${p.sport.charAt(0).toUpperCase()+p.sport.slice(1)}</span><span class="pm-dot">·</span><span>Nivel ${p.nivel}</span><span class="pm-dot">·</span><span>📍 ${p.dist} km</span></div>
+          </div>
+          <div class="pm-actions">
+            ${p.disponible
+              ? `<span class="pm-badge disponible">Disponible</span><button class="pm-reto-btn" onclick="retarJugador('${p.name}')">RETAR</button>`
+              : `<span class="pm-badge ocupado">Ocupado</span>`
+            }
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterPlayers(btn) {
+      document.querySelectorAll('.pm-filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.dataset.sport;
+      renderPlayers(currentFilter);
+    }
+
+    function openPlayersModal() {
+      document.getElementById('playersModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      renderPlayers('todos');
+    }
+
+    function closePlayersModal(e) {
+      if (e && e.target !== document.getElementById('playersModal') && !e.target.closest('.pm-close')) return;
+      document.getElementById('playersModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function retarJugador(nombre) {
+      const btn = event.target;
+      btn.textContent = '✓ ENVIADO';
+      btn.style.background = '#008040';
+      btn.style.borderColor = '#008040';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = 'RETAR';
+        btn.style.background = '';
+        btn.style.borderColor = '';
+        btn.disabled = false;
+      }, 2500);
+    }
   </script>
 
   <!-- Firebase SDK -->
