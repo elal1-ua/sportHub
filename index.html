@@ -169,10 +169,10 @@
     <!-- HERO -->
     <section class="hero" id="hero">
       <div class="hero-bg">
-        <video class="hero-video" autoplay muted loop playsinline>
-          <source src="ilalo.mp4" type="video/mp4">
-        </video>
-        <div class="hero-video-overlay"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
         <div class="noise-overlay"></div>
       </div>
 
@@ -198,7 +198,7 @@
             DESCUBRIR JUGADORES
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
-          <button class="cta-secondary">
+          <button class="cta-secondary" onclick="openVideoModal()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             Ver cómo funciona
           </button>
@@ -371,6 +371,38 @@
       </div>
     </footer>
   </div>
+
+  <!-- VIDEO MODAL -->
+  <div id="videoModal" class="video-modal" onclick="closeVideoModal(event)">
+    <div class="video-modal-inner">
+      <button class="video-modal-close" onclick="closeVideoModal()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <video id="modalVideo" class="video-modal-player" controls playsinline>
+        <source src="ilalo.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <script>
+    function openVideoModal() {
+      const modal = document.getElementById('videoModal');
+      const video = document.getElementById('modalVideo');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      video.play();
+    }
+    function closeVideoModal(e) {
+      if (e && e.target !== document.getElementById('videoModal') && !e.target.closest('.video-modal-close')) return;
+      const modal = document.getElementById('videoModal');
+      const video = document.getElementById('modalVideo');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+      video.pause();
+      video.currentTime = 0;
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideoModal({}); });
+  </script>
 
   <!-- Firebase SDK -->
   <script type="module" src="app.js"></script>
