@@ -412,23 +412,6 @@
   <!-- WELCOME MODAL -->
   <div id="welcomeModal" class="welcome-modal">
 
-    <!-- PASO 1: Formulario -->
-    <div class="wm-step" id="wmStep1">
-      <div class="wm-card">
-        <div class="wm-logo">
-          <svg width="48" height="48" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="22" fill="#FF5500"/><text x="50" y="62" font-family="Arial Black, sans-serif" font-size="52" font-weight="900" font-style="italic" fill="white" text-anchor="middle" dominant-baseline="middle">SH</text></svg>
-        </div>
-        <h2 class="wm-title">¿Cómo te llamas?</h2>
-        <p class="wm-sub">Solo necesitamos tu nombre para empezar</p>
-        <input class="wm-input" id="wmNameInput" type="text" placeholder="Tu nombre..." maxlength="24" oninput="wmCheckInput()" onkeydown="if(event.key==='Enter')wmSubmit()" autofocus />
-        <button class="wm-btn" id="wmSubmitBtn" onclick="wmSubmit()" disabled>
-          UNIRME AL JUEGO
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-        <button class="wm-skip" onclick="closeWelcomeModal()">Ahora no</button>
-      </div>
-    </div>
-
     <!-- PASO 2: Animación de bienvenida -->
     <div class="wm-step hidden" id="wmStep2">
       <div class="wm-welcome-bg">
@@ -445,8 +428,8 @@
         <div class="wm-checkmark">
           <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <div class="wm-bienvenido">BIENVENIDO</div>
-        <div class="wm-username" id="wmUserName"></div>
+        <div class="wm-bienvenido">BIENVENIDO A</div>
+        <div class="wm-username">SPORTHUB</div>
         <div class="wm-tagline">Ya formas parte de SportHub</div>
         <div class="wm-stats-row">
           <div class="wm-stat"><span class="wm-stat-n">12.840</span><span class="wm-stat-l">Jugadores</span></div>
@@ -570,11 +553,8 @@
       const modal = document.getElementById('welcomeModal');
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
-      document.getElementById('wmStep1').classList.remove('hidden');
-      document.getElementById('wmStep2').classList.add('hidden');
-      document.getElementById('wmNameInput').value = '';
-      document.getElementById('wmSubmitBtn').disabled = true;
-      setTimeout(() => document.getElementById('wmNameInput').focus(), 200);
+      document.getElementById('wmStep1').classList.add('hidden');
+      document.getElementById('wmStep2').classList.remove('hidden');
     }
 
     function closeWelcomeModal() {
