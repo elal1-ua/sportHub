@@ -1400,33 +1400,110 @@ button { cursor: pointer; border: none; background: none; }
 
 /* ── HEADER ─── */
 .admin-dashboard .admin-header {
-  background: var(--adm-accent) !important;
-  border-bottom: 3px solid var(--adm-accent2) !important;
+  background: linear-gradient(135deg, #0f2bb8 0%, #1a3de4 50%, #1e46f5 100%) !important;
+  border-bottom: 4px solid #e84200 !important;
   backdrop-filter: none !important;
+  padding: 0 36px !important;
+  height: 72px !important;
+  min-height: 72px !important;
+  gap: 28px !important;
+  box-shadow: 0 4px 24px rgba(26,61,228,.35) !important;
 }
 
+/* Logo área */
 .admin-dashboard .admin-logo {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
   color: #ffffff !important;
+  text-decoration: none !important;
 }
 
-.admin-dashboard .admin-logo em {
-  color: #ffcc00 !important;
+.admin-dashboard .admin-logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px; height: 44px;
+  background: rgba(255,255,255,.15);
+  border-radius: 12px;
+  border: 2px solid rgba(255,255,255,.3);
+  flex-shrink: 0;
 }
 
-.admin-dashboard .admin-logo svg path,
-.admin-dashboard .admin-logo svg circle,
-.admin-dashboard .admin-logo svg rect,
-.admin-dashboard .admin-logo svg polygon,
-.admin-dashboard .admin-logo svg ellipse {
-  stroke: #ffffff !important;
-  fill: #ffffff !important;
+.admin-dashboard .admin-logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
+.admin-dashboard .admin-logo-name {
+  font-family: 'Bebas Neue', sans-serif !important;
+  font-size: 1.5rem !important;
+  letter-spacing: .14em !important;
+  color: #ffffff !important;
+  line-height: 1 !important;
+}
+
+.admin-dashboard .admin-logo-badge {
+  font-family: 'Space Mono', monospace !important;
+  font-size: .6rem !important;
+  letter-spacing: .2em !important;
+  color: #ffcc44 !important;
+  background: rgba(255,204,68,.18) !important;
+  border: 1px solid rgba(255,204,68,.35) !important;
+  border-radius: 4px !important;
+  padding: 1px 6px !important;
+  text-transform: uppercase !important;
+  width: fit-content !important;
+}
+
+/* Divisor vertical */
+.admin-dashboard .admin-header-divider {
+  width: 1px;
+  height: 36px;
+  background: rgba(255,255,255,.2);
+  flex-shrink: 0;
+}
+
+/* Stat central (usuarios en vivo) */
+.admin-dashboard .admin-header-center {
+  display: flex;
+  align-items: center;
+}
+
+.admin-dashboard .admin-header-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.admin-dashboard .admin-header-stat-val {
+  font-family: 'Bebas Neue', sans-serif !important;
+  font-size: 2.2rem !important;
+  color: #ffffff !important;
+  line-height: 1 !important;
+}
+
+.admin-dashboard .admin-header-stat-lbl {
+  font-family: 'Space Mono', monospace !important;
+  font-size: .72rem !important;
+  color: rgba(255,255,255,.65) !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+}
+
+/* Status (sistema activo) */
 .admin-dashboard .admin-status {
-  color: #cce0ff !important;
+  margin-left: auto !important;
+  color: #a8ffcc !important;
+  font-size: .75rem !important;
+  gap: 8px !important;
+  letter-spacing: .08em !important;
 }
 
 .admin-dashboard .pulse-dot {
+  width: 10px !important;
+  height: 10px !important;
   background: #5eff9e !important;
   box-shadow: 0 0 0 0 rgba(94,255,158,.6) !important;
 }
@@ -1439,15 +1516,28 @@ button { cursor: pointer; border: none; background: none; }
   animation: pulseDotLight 1.2s ease-in-out infinite !important;
 }
 
+/* Botón salir */
 .admin-dashboard .admin-logout {
-  background: rgba(255,255,255,.15) !important;
-  border: 1px solid rgba(255,255,255,.4) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  padding: 10px 20px !important;
+  background: rgba(255,255,255,.1) !important;
+  border: 1.5px solid rgba(255,255,255,.3) !important;
+  border-radius: 10px !important;
   color: #ffffff !important;
+  font-family: 'Space Mono', monospace !important;
+  font-size: .72rem !important;
+  letter-spacing: .12em !important;
+  transition: all .2s !important;
+  flex-shrink: 0 !important;
 }
 .admin-dashboard .admin-logout:hover {
-  background: rgba(255,50,50,.6) !important;
-  border-color: rgba(255,50,50,.8) !important;
+  background: rgba(232,66,0,.55) !important;
+  border-color: #e84200 !important;
   color: #ffffff !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 16px rgba(232,66,0,.4) !important;
 }
 
 /* ── KPI CARDS ─── */
