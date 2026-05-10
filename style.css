@@ -1953,3 +1953,215 @@ button { cursor: pointer; border: none; background: none; }
   animation: pulseDotLight 1.4s ease-in-out infinite;
 }
 
+
+/* ════════════════════════════════════════════════════════
+   WELCOME MODAL — "Unirme Gratis"
+   ════════════════════════════════════════════════════════ */
+.welcome-modal {
+  position: fixed; inset: 0; z-index: 9996;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.8);
+  backdrop-filter: blur(12px);
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s ease;
+}
+.welcome-modal.active {
+  opacity: 1; pointer-events: all;
+}
+
+.wm-step {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.wm-step.hidden { display: none; }
+
+/* ── PASO 1: Formulario ── */
+.wm-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 44px 40px;
+  width: min(440px, 100%);
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  box-shadow: 0 40px 100px rgba(0,0,0,.5);
+  transform: scale(.9) translateY(20px);
+  animation: wmCardIn .4s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+@keyframes wmCardIn {
+  to { transform: scale(1) translateY(0); }
+}
+
+.wm-logo { margin-bottom: 4px; }
+.wm-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem; letter-spacing: .06em;
+  color: #0a0e1f; margin: 0; text-align: center;
+}
+.wm-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: .72rem; color: #6b7280;
+  text-align: center; margin: 0;
+}
+.wm-input {
+  width: 100%; padding: 14px 18px;
+  border: 2px solid rgba(0,0,0,.12);
+  border-radius: 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem; font-weight: 600;
+  color: #0a0e1f;
+  outline: none;
+  transition: border-color .2s;
+  margin-top: 8px;
+}
+.wm-input:focus { border-color: #1a3de4; }
+.wm-btn {
+  width: 100%; padding: 16px;
+  background: linear-gradient(135deg, #1a3de4, #0f2bb8);
+  border: none; border-radius: 12px;
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem; letter-spacing: .1em;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: all .2s;
+  cursor: pointer;
+}
+.wm-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #e84200, #c43600);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(232,66,0,.4);
+}
+.wm-btn:disabled { opacity: .4; cursor: not-allowed; }
+.wm-skip {
+  font-family: 'Space Mono', monospace;
+  font-size: .7rem; color: #9ca3af;
+  background: none; border: none;
+  cursor: pointer; margin-top: -4px;
+  transition: color .2s;
+}
+.wm-skip:hover { color: #6b7280; }
+
+/* ── PASO 2: Bienvenida épica ── */
+#wmStep2 {
+  background: linear-gradient(135deg, #050510 0%, #0a1040 40%, #1a0830 100%);
+}
+
+.wm-welcome-bg {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+}
+.wm-particle {
+  position: absolute;
+  left: var(--x); top: var(--y);
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #ff5500;
+  opacity: 0;
+  animation: wmParticle 3s ease-in-out var(--d) infinite;
+  transform: scale(var(--s));
+}
+@keyframes wmParticle {
+  0%   { opacity: 0; transform: scale(var(--s)) translateY(0); }
+  30%  { opacity: .8; }
+  100% { opacity: 0; transform: scale(var(--s)) translateY(-120px); }
+}
+
+.wm-welcome-content {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 20px; text-align: center; padding: 40px 20px;
+  animation: wmContentIn .6s cubic-bezier(.34,1.4,.64,1) both;
+}
+@keyframes wmContentIn {
+  from { opacity: 0; transform: scale(.85) translateY(30px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.wm-checkmark {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: linear-gradient(135deg, #008040, #00b050);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 0 rgba(0,180,80,.5);
+  animation: wmCheck .5s cubic-bezier(.34,1.8,.64,1) both, wmCheckPulse 2s ease-in-out 1s infinite;
+}
+@keyframes wmCheck {
+  from { transform: scale(0) rotate(-180deg); opacity: 0; }
+  to   { transform: scale(1) rotate(0); opacity: 1; }
+}
+@keyframes wmCheckPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,180,80,.5); }
+  50%       { box-shadow: 0 0 0 20px rgba(0,180,80,0); }
+}
+
+.wm-bienvenido {
+  font-family: 'Space Mono', monospace;
+  font-size: .85rem; letter-spacing: .3em;
+  color: rgba(255,255,255,.5);
+  animation: wmFadeUp .5s .2s ease both;
+}
+
+.wm-username {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 10vw, 5.5rem);
+  letter-spacing: .06em;
+  color: #ffffff;
+  line-height: 1;
+  text-shadow: 0 0 60px rgba(255,85,0,.6), 0 0 120px rgba(255,85,0,.3);
+  animation: wmNameIn .7s .3s cubic-bezier(.34,1.4,.64,1) both;
+}
+@keyframes wmNameIn {
+  from { opacity: 0; transform: scale(.6) translateY(20px); letter-spacing: .3em; }
+  to   { opacity: 1; transform: scale(1) translateY(0); letter-spacing: .06em; }
+}
+
+.wm-tagline {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem; font-weight: 600;
+  color: rgba(255,255,255,.7);
+  animation: wmFadeUp .5s .5s ease both;
+}
+@keyframes wmFadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.wm-stats-row {
+  display: flex; align-items: center; gap: 24px;
+  padding: 20px 32px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 16px;
+  animation: wmFadeUp .5s .6s ease both;
+}
+.wm-stat { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.wm-stat-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem; color: #ff5500; line-height: 1;
+}
+.wm-stat-l {
+  font-family: 'Space Mono', monospace;
+  font-size: .62rem; color: rgba(255,255,255,.5);
+  letter-spacing: .08em; text-transform: uppercase;
+}
+.wm-stat-div { width: 1px; height: 36px; background: rgba(255,255,255,.15); }
+
+.wm-sports-row {
+  font-size: 1.6rem; letter-spacing: .2em;
+  animation: wmFadeUp .5s .7s ease both;
+}
+
+.wm-close-btn {
+  padding: 16px 40px;
+  background: linear-gradient(135deg, #ff5500, #e84200);
+  border: none; border-radius: 12px;
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem; letter-spacing: .12em;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(255,85,0,.4);
+  transition: all .2s;
+  animation: wmFadeUp .5s .8s ease both;
+}
+.wm-close-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 40px rgba(255,85,0,.55);
+}
+
